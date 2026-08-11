@@ -23,11 +23,11 @@ export default function App() {
 
     return (
         <View style={styles.container}>
-            <TextInput style={css.input} onChangeText={"Salario"} placeholder={setSalario}></TextInput>
-            <TextInput style={css.input} onChangeText={"Horas"} placeholder={setHoras}></TextInput>
-            <TextInput style={css.input} onChangeText={"ValorHora"} placeholder={setValorhora}></TextInput>
+            <TextInput style={styles.input} onChangeText={"Salario"} placeholder={setSalario}></TextInput>
+            <TextInput style={styles.input} onChangeText={"Horas"} placeholder={setHoras}></TextInput>
+            <TextInput style={styles.input} onChangeText={"ValorHora"} placeholder={setValorhora}></TextInput>
             <Button title='calcular' onPress={calcular} />
-            <Text style={css.resultado}>{resultado}</Text>
+            <Text style={styles.resultado}>{resultado}</Text>
         </View>
     )
 }
