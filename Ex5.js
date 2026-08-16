@@ -12,8 +12,8 @@ export default function App() {
         let falta = meta - agua;
 
         setResultado(
-            "Meta: " + meta + " ml\n" +
-            "Consumido: " + agua + " ml\n" +
+            "Meta: " + meta + " ml" +
+            "Consumido: " + agua + " ml" +
             "Falta: " + falta + " ml"
         );
     }

@@ -15,8 +15,8 @@ export default function App(){
 
         setResultado(
             "Litros necessários: " + litros.toFixed(2) +
-            "\nCusto total: R$ " + total.toFixed(2) +
-            "\nCusto a cada 100 km: R$ " + custo100.toFixed(2)
+            "Custo total: R$ " + total.toFixed(2) +
+            "Custo a cada 100 km: R$ " + custo100.toFixed(2)
         );
     }
     return (

@@ -1,40 +1,41 @@
-import {View, StyleSheet, TextInput, Button} from "react-native";
+import {Button, TextInput, View ,Text,  StyleSheet} from "react-native";
 import {useState} from "react";
 
-export default function App() {
-    const [salario, setSalario] = useState("");
-    const [horas, setHoras] = useState("");
-    const [valorhora, setValorhora] = useState("");
-    const [resultado, setResultado] = useState("");
 
-    function calcular (){
-        let extra = horas * valorhora;
-        let salariofinal = Number(salario) + extra
-        let imposto = 0;
+export default function App(){
+    const [distancia, setDistancia] = useState("")
+    const [preco, setPreco] = useState("")
+    const [resultado, setResultado] = useState("")
+    const [consumos, setConsumos] = useState("")
 
-        if (salariofinal > 5000){
-            imposto = salariofinal * 0,10
-            salariofinal = salariofinal - imposto
-        }
+    function calculo() {
+        let litros = distancia / consumos;
+        let total = litros * preco;
+        let custo100 = (100 / consumos) * preco;
+
         setResultado(
-            salario + extra + imposto + salariofinal
-        )
+            "Litros necessários: " + litros.toFixed(2) +
+            "Custo total: R$ " + total.toFixed(2) +
+            "Custo a cada 100 km: R$ " + custo100.toFixed(2)
+        );
     }
-
     return (
-        <View style={styles.container}>
-            <TextInput style={styles.input} onChangeText={"Salario"} placeholder={setSalario}></TextInput>
-            <TextInput style={styles.input} onChangeText={"Horas"} placeholder={setHoras}></TextInput>
-            <TextInput style={styles.input} onChangeText={"ValorHora"} placeholder={setValorhora}></TextInput>
-            <Button title='calcular' onPress={calcular} />
-            <Text style={styles.resultado}>{resultado}</Text>
+        <View style={css.container}>
+            <Text style={css.titulo}>Calculadora</Text>
+            <TextInput style={css.input} placeholder={'Distancia'} onChangeText={setDistancia}></TextInput>
+            <TextInput style={css.input} placeholder={'Consumo'} onChangeText={setConsumos}></TextInput>
+            <TextInput style={css.input} placeholder={'Preço'} onChangeText={setPreco}></TextInput>
+
+
+
+            <Button title="Calcular" onPress={calculo} />
+            <Text style={css.resultado}>{resultado}</Text>
+
         </View>
+
     )
 }
-
-
-
-const styles = StyleSheet.create({
+const css = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: "center",

@@ -1,127 +1,162 @@
-import {TextInput, View, Text, StyleSheet} from "react-native";
-import {useState} from "react";
+import { View, Text, StyleSheet, Pressable, TextInput } from "react-native";
+import { useState } from "react";
 
 export default function App() {
-    const [time1, setTime1] = useState("");
-    const [time2, setTime2] = useState("");
-    const [cartaoamarelo, setCartaoamarelo] = useState("");
-    const [cartaovermelho, setCartaovermelho] = useState("");
+    const [quantidade, setQuantidade] = useState(0);
+    const [estoque, setEstoque] = useState(0);
 
+    function cadastrarEstoque() {
+        const valor = Number(quantidade);
+
+        if (valor >= 0) {
+            setEstoque(valor);
+        }
+    }
+
+    function adicionar() {
+        setEstoque(estoque + 1);
+    }
+
+    function retirar() {
+        if (estoque > 0) {
+            setEstoque(estoque - 1);
+        }
+    }
 
     return (
         <View style={styles.container}>
-            <Text style={styles.texto}>Placar do jogo</Text>
-            <Text style={styles.placar}>{time1}x{time2}</Text>
 
-            <TextInput style={styles.time1} onChangeText={setTime1}  placeholder={'time1'}></TextInput>
-            <TextInput style={styles.time2} onChangeText={setTime2}  placeholder={'time2'}></TextInput>
+            <Text style={styles.titulo}>
+                Controle de Estoque
+            </Text>
 
-            <Text style={styles.cartaoAmarelo}>{cartaoamarelo}</Text>
-            <Text style={styles.cartaoVermelho} >{cartaovermelho}</Text>
+            <TextInput
+                style={styles.input}
+                placeholder="Quantidade inicial"
+                value={quantidade}
+                onChangeText={setQuantidade}
+            />
 
-            <View>
-                <TextInput
-                    style={styles.cartaoAmarelo}
-                    onChangeText={setCartaoamarelo}
-                />
+            <Pressable
+                style={styles.botaoCadastrar}
+                onPress={cadastrarEstoque}
+            >
+                <Text style={styles.textoBotao}>
+                    Cadastrar estoque
+                </Text>
+            </Pressable>
 
-                <TextInput
-                    style={styles.cartaoVermelho}
-                    onChangeText={setCartaovermelho}
-                />
+            <Text style={styles.quantidade}>
+                {estoque}
+            </Text>
+
+            <Text>unidades em estoque</Text>
+
+            {estoque <= 5 && (
+                <Text style={styles.alerta}>
+                    Estoque baixo
+                </Text>
+            )}
+
+            <View style={styles.botoes}>
+
+                <Pressable
+                    style={styles.botaoRetirar}
+                    onPress={retirar}
+                >
+                    <Text style={styles.textoBotao}>
+                        - Retirar
+                    </Text>
+                </Pressable>
+
+                <Pressable
+                    style={styles.botaoAdicionar}
+                    onPress={adicionar}
+                >
+                    <Text style={styles.textoBotao}>
+                        + Adicionar
+                    </Text>
+                </Pressable>
+
             </View>
+
         </View>
-    )
+    );
 }
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: '#d5d5d5',
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "#f2f2f2",
+        padding: 20,
     },
-    texto:{
-        fontSize: 25,
-        fontWeight: 'bold',
-        marginTop: 10,
 
+    titulo: {
+        fontSize: 28,
+        fontWeight: "bold",
+        marginBottom: 25,
     },
-    placar:{
+
+    input: {
+        width: "100%",
+        backgroundColor: "white",
+        borderWidth: 1,
+        borderColor: "#aaa",
+        borderRadius: 8,
+        padding: 12,
+        marginBottom: 10,
+        textAlign: "center",
+        fontSize: 18,
+    },
+
+    botaoCadastrar: {
+        backgroundColor: "#333",
+        padding: 12,
+        borderRadius: 8,
+        marginBottom: 30,
+        width: "100%",
+        alignItems: "center",
+    },
+
+    quantidade: {
+        fontSize: 50,
+        fontWeight: "bold",
+    },
+
+    alerta: {
+        backgroundColor: "#ffcccc",
+        color: "#c00000",
         fontSize: 20,
-        fontWeight: 'bold',
-        marginTop: 20,
-
-    },
-
-    time1:{
-        backgroundColor:'black',
-        borderRadius:5,
-        color:'white',
-        width: '50%',
-        height: '30%',
-        fontSize: 25,
-        fontWeight: 'bold',
-        textAlign:'center',
-        marginTop: 10,
-    },
-    time2:{
-        width:'50%',
-        height:'30%',
-        backgroundColor:'#0000FF',
-        borderRadius:5,
-        fontSize:25,
-        fontWeight: 'bold',
-        color:'white',
-        textAlign:'center',
-        marginTop: 10,
-
-    },
-
-    cartaoAmarelo: {
-        width: 80,
-        height: 110,
-        backgroundColor: '#FFD700',
+        fontWeight: "bold",
+        padding: 10,
         borderRadius: 8,
         marginTop: 20,
-        fontSize: 30,
-        fontWeight: 'bold',
-        textAlign: 'center',
-        color: '#fff',
-
-        borderWidth: 2,
-        borderColor: '#D4AF00',
-
-        shadowColor: '#000',
-        shadowOffset: {
-            width: 0,
-            height: 4,
-        },
-        shadowOpacity: 0.3,
-        shadowRadius: 5,
-        elevation: 8,
     },
 
-    cartaoVermelho: {
-        width: 80,
-        height: 110,
-        backgroundColor: '#FF1E1E',
+    botoes: {
+        flexDirection: "row",
+        gap: 20,
+        marginTop: 30,
+    },
+
+    botaoAdicionar: {
+        backgroundColor: "#28a745",
+        padding: 15,
         borderRadius: 8,
-        marginTop: 20,
-        fontSize: 30,
-        fontWeight: 'bold',
-        textAlign: 'center',
-        color: 'white',
-
-        borderWidth: 2,
-        borderColor: '#B00000',
-
-        shadowColor: '#000',
-        shadowOffset: {
-            width: 0,
-            height: 4,
-        },
-        shadowOpacity: 0.3,
-        shadowRadius: 5,
-        elevation: 8,
     },
-})
+
+    botaoRetirar: {
+        backgroundColor: "#dc3545",
+        padding: 15,
+        borderRadius: 8,
+    },
+
+    textoBotao: {
+        color: "white",
+        fontWeight: "bold",
+        fontSize: 16,
+    },
+
+});
